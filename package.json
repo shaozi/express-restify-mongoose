@@ -11,7 +11,8 @@
     "mongoose-detective": "~0.1.0",
     "moredots": "~0.1.0",
     "serialize-error": "~2.0.0",
-    "weedout": "~0.1.0"
+    "weedout": "~0.1.0",
+    "snyk": "^1.189.0"
   },
   "peerDependencies": {
     "mongoose": "^4.0.0"
@@ -58,7 +59,7 @@
   "scripts": {
     "lint": "standard",
     "compile": "babel src -d lib --source-maps both",
-    "prepublish": "in-publish && npm test || not-in-publish",
+    "prepublish": "npm run snyk-protect; in-publish && npm test || not-in-publish",
     "pretest": "npm run lint && npm run compile",
     "test": "npm run test-unit && npm run test-filter && npm run test-express && npm run test-restify",
     "test-ci": "npm run test-unit && npm run test-filter && npm run test-cov-express && npm run test-restify",
@@ -69,7 +70,8 @@
     "test-cov-unit": "istanbul cover node_modules/mocha/bin/_mocha -- --compilers js:babel-core/register -R spec ./test/unit.js",
     "test-cov-express": "istanbul cover node_modules/mocha/bin/_mocha -- --compilers js:babel-core/register -R spec ./test/express.js --timeout 10s",
     "test-cov-restify": "istanbul cover node_modules/mocha/bin/_mocha -- --compilers js:babel-core/register -R spec ./test/restify.js --timeout 10s",
-    "report-coverage": "cat ./coverage/lcov.info | coveralls"
+    "report-coverage": "cat ./coverage/lcov.info | coveralls",
+    "snyk-protect": "snyk protect"
   },
   "files": [
     "CHANGELOG.md",
@@ -90,5 +92,6 @@
       "it"
     ]
   },
-  "version": "4.1.1"
+  "version": "4.1.1",
+  "snyk": true
 }
